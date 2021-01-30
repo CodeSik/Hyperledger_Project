@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>중고물품 거래</title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+	</head>
+	<body>
+		<br><br><br>
+
+		<div id="main">
+			<div class="inner">
+				<div class="row gtr-200">
+					<div class="col-6">
+						<h2>Identity </h2>
+						<form method="get" action="enrollAdmin">
+							<button type="submit" class="primary" onclick="">enroll admin</button>
+						</form>
+						<h4>Name  :  <a id="name"><%= name %></a></h4>
+						<form method="post" action="registerUser">
+							<h4>change user</h4>
+							<input type="text" name="user" id="user" value="" placeholder="Enter user name" /><br>
+							<button type="submit" class="primary" onclick="">change user</button>
+						</form>
+						<form method="post" action="earnToken">
+							<h4>earn 100Token</h4>
+							<h4>MyBalance  :  <a id="balance"><%= balance %></a></h4>
+							<button type="submit" class="primary" onclick="">earn 100Token</button>
+					
+						</form>
+					</div>
+				</div>
+				<hr class="major">
+
+				<div class="row gtr-200">
+					<div class ="col-6 col-12-medium">
+						<h2>Register My Item</h2>
+						<form method="post" action="registerItem">
+							<div class="row gtr-uniform">
+								<div class="col-6 col-12-xsmall">
+									<h4>Name  :  <a id="name"><%= name %></a></h4>
+									<h4>Itemname</h4>
+									<input type="text" name="item_name" id="item_name" value="" placeholder="Itemname" /><br>
+									<h4>Price</h4>
+									<input type="text" name="price" id="price" value="" placeholder="price" /><br>
+								</div>
+							</div>
+							<div class="col-12">
+								<ul class="actions">
+									<li><button id="submit" class="primary" onclick="" />register</li>
+									<li><input type="reset" value="reset" /></li>
+								</ul>
+							</div>
+						</form>
+					</div>
+
+					<div class ="col-6 col-12-medium">
+						<h2>My Items</h2>
+						<form method="get" action="">
+							<table>
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>          </th>
+										<th>Name</th>
+										<th>  </th>
+										<th>Owner</th>
+										<th>Price</th>
+										<th> </th>
+										<th>Status</th>
+								</thead>
+								<tbody id="myItems">
+									</tr>
+									<% for (var i = 0; i < myitems.length; i++) { %> 
+										<tr>
+										<% for (var j = 0; j < myitems[i].length; j++) { %> 
+											<th><%=myitems[i][j]%><th>	
+										<% } %>
+										</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</form>
+					</div>
+
+					<div class ="col-6 col-12-medium">
+						<h2>Sell My Item</h2>
+						<form method="post" action="sellMyItem">
+							<div class="row gtr-uniform">
+								<div class="col-12">
+									<select name="myItems_category" id="myItems_category">
+										<% for (var i = 0; i < myitems.length; i++) { %> 
+												<option value= <%=myitems[i][0]%>/<%=myitems[i][1]%>/<%=myitems[i][3]%>>Key 값: <%=myitems[i][0]%> / 물품 이름: <%=myitems[i][1]%> / 가격: <%=myitems[i][3]%> </option>
+										<% } %>
+									</select>
+								</div>
+								<div class="col-12">
+									<ul class="actions">
+										<li><input type="submit" value="Sell" class="primary" onclick="" /></li>
+										<li><input type="reset" value="reset" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+					<div class ="col-6 col-12-medium">
+						<h2>Buy Users Item</h2>
+						<form method="post" action="buyUserItem">
+							<div class="row gtr-uniform">
+								<div class="col-12">
+									<select name="sale_category" id="sale_category">
+										<% for (var i = 0; i < registeredItem.length; i++) { %> 
+											<option value= <%=registeredItem[i][0]%>/<%=registeredItem[i][1]%>/<%=registeredItem[i][2]%>/<%=registeredItem[i][3]%>>Key 값: <%=registeredItem[i][0]%> / 물품 이름: <%=registeredItem[i][1]%> / 가격: <%=registeredItem[i][3]%> </option>
+										<% } %>
+									</select>
+								</div>
+								<div class="col-12">
+									<ul class="actions">
+										<li><input type="submit" value="Buy" class="primary" onclick=""/></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+
+				<hr class="major">
+
+				<div class="row gtr-200">
+					<div class ="col-6 col-12-medium">
+						<h3>registered Items</h3>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>          </th>
+										<th>Name</th>
+										<th>  </th>
+										<th>Owner</th>
+										<th>Price</th>
+										<th> </th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody id="registeredItems">
+									</tr>
+									<% for (var i = 0; i < registeredItem.length; i++) { %> 
+										<tr>
+										<% for (var j = 0; j < registeredItem[i].length; j++) { %> 
+											<th><%=registeredItem[i][j]%><th>	
+										<% } %>
+										</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class ="col-6 col-12-medium">
+						<h3>Items on sale</h3>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>          </th>
+										<th>Name</th>
+										<th>  </th>
+										<th>Owner</th>
+										<th>Price</th>
+										<th> </th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody id="ItemOnSale">
+								</tr>
+									<% for (var i = 0; i < saledItem.length; i++) { %> 
+										<tr>
+										<% for (var j = 0; j < saledItem[i].length; j++) { %> 
+											<th><%=saledItem[i][j]%><th>	
+										<% } %>
+										</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
